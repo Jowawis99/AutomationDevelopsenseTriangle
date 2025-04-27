@@ -57,6 +57,14 @@ public class BasePage {
 
    public String getText(String locator) {
      return Find(locator).getText().trim();
-     }
+   }
+
+    public boolean isDisplayed(String locator) {
+      try {
+          return Find(locator).isDisplayed();
+      } catch (Exception e) {
+          return false;
+      }
+    }
     
 }
