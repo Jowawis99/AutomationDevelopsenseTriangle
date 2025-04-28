@@ -1,3 +1,4 @@
+@TriangleAutomation
 Feature: Validar la respuesta del programa al ingresar las longitudes de los lados
 
     Background:

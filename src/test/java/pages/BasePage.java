@@ -20,7 +20,7 @@ public class BasePage {
     static {
      WebDriverManager.chromedriver().setup();
      ChromeOptions options = new ChromeOptions();
-     //options.addArguments("--headless=new");
+     options.addArguments("--headless=new");
      driver = new ChromeDriver(options);
      wait = new WebDriverWait(driver, Duration.ofSeconds(5));
  }

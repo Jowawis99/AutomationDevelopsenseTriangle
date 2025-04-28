@@ -1,0 +1,43 @@
+pipeline {
+    agent any
+
+    tools {
+        gradle "Gradle"
+    }
+    parameters {
+        string(name: 'TAG_RUN', defaultValue: '@TriangleAutomation', description: 'Tag a ejecutar')
+    }
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Jowawis99/AutomationDevelopsenseTriangle'
+            }
+        }
+
+        stage('Test') {
+            steps {
+                withCredentials([string(credentialsId: 'CUCUMBER_PUBLISH_TOKEN_TRIANGLE', variable: 'CUCUMBER_PUBLISH_TOKEN')]) {
+                bat """
+                    if "${params.TAG_RUN}"=="" (
+                        gradle clean test ^
+                        -Dcucumber.publish.enabled=true
+                    ) else (
+                        gradle clean test ^
+                        -Dcucumber.filter.tags=${params.TAG_RUN} ^
+                        -Dcucumber.publish.enabled=true
+                    )
+                """
+                }
+            }
+        }
+    }
+
+    post {
+        always {
+            echo "Publicando reportes..."
+            archiveArtifacts artifacts: 'build/reports/**', allowEmptyArchive: true
+            junit 'build/test-results/test/*.xml'
+        }
+    }
+}
