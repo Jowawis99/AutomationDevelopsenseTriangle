@@ -32,4 +32,12 @@ public class TriangleCalculatorPage extends BasePage{
         return isDisplayed(graphCanvas);
     } 
 
+    public String capturarTexAlerta() {
+        return BasePage.getAlertText();
+    }
+
+    public void aceptAlerta() {
+        BasePage.acceptAlert();
+    }
+
 }

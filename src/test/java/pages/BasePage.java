@@ -66,5 +66,13 @@ public class BasePage {
           return false;
       }
     }
+
+    public static String getAlertText() {
+      return driver.switchTo().alert().getText();
+    }
+
+    public static void acceptAlert() {
+      driver.switchTo().alert().accept();
+    }
     
 }

@@ -30,9 +30,16 @@ public class TriangleCalculatorStep {
             triangleCalculatorPage.clickCheck();
         }
         
-    @Then("Visualizo la respuesta del programa")
-        public void viewGrafico(){
+    @Then("Visualizo la {string} del programa")
+        public void viewGrafico(String respuestaEsperada){
             Assert.assertTrue(triangleCalculatorPage.viewCanvas());
+            System.out.println("Respuesta esperada: " + respuestaEsperada);
         }
 
+    @Then("Visualizo la alerta de falta de datos")
+        public void viewAlert(){
+            String mensajeAlerta = triangleCalculatorPage.capturarTexAlerta();
+            Assert.assertEquals(mensajeAlerta, "The name field is blank. Please enter your name in the field at the top of the instructions.");
+            triangleCalculatorPage.aceptAlerta();
+        }
 }
